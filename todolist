@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    #todo-list {
+        margin-top: 20px;
+    }
+    #todo-list li {
+        list-style-type: none;
+        margin-bottom: 10px;
+    }
+    #todo-list li input[type="checkbox"] {
+        margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Todo List</h2>
+
+<form id="todo-form">
+    <input type="text" id="todo-input" placeholder="Enter a new task">
+    <button type="submit">Add Task</button>
+</form>
+
+<ul id="todo-list"></ul>
+
+<script>
+    document.getElementById('todo-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var todoInput = document.getElementById('todo-input');
+        var todoText = todoInput.value.trim(); // Remove leading and trailing whitespace
+
+        if(todoText !== '') {
+            addTodoItem(todoText);
+            todoInput.value = ''; // Clear input field
+        }
+    });
+
+    function addTodoItem(todoText) {
+        var todoList = document.getElementById('todo-list');
+        var li = document.createElement('li');
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.addEventListener('change', function() {
+            if(this.checked) {
+                li.style.textDecoration = 'line-through';
+            } else {
+                li.style.textDecoration = 'none';
+            }
+        });
+        var label = document.createElement('label');
+        label.textContent = todoText;
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        todoList.appendChild(li);
+    }
+</script>
+
+</body>
+</html>
